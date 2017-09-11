@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SampleArch.Model;
+﻿using SampleArch.Model;
 using SampleArch.Repository;
 
 namespace SampleArch.Service
 {
     public class PersonService : EntityService<Person>, IPersonService
     {
-        IUnitOfWork _unitOfWork;
-        IPersonRepository _personRepository;
-        
+        private IPersonRepository _personRepository;
+        private IUnitOfWork _unitOfWork;
+
         public PersonService(IUnitOfWork unitOfWork, IPersonRepository personRepository)
             : base(unitOfWork, personRepository)
         {
@@ -20,9 +15,6 @@ namespace SampleArch.Service
             _personRepository = personRepository;
         }
 
-
-        public Person GetById(long Id) {
-            return _personRepository.GetById(Id);
-        }
+        public Person GetById(long Id) => _personRepository.GetById(Id);
     }
 }

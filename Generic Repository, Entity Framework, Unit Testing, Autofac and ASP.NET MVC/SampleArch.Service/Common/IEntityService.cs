@@ -1,9 +1,5 @@
-﻿using System;
+﻿using SampleArch.Model;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SampleArch.Model;
 
 namespace SampleArch.Service
 {
@@ -11,8 +7,11 @@ namespace SampleArch.Service
      where T : BaseEntity
     {
         void Create(T entity);
+
         void Delete(T entity);
-        IEnumerable<T> GetAll();      
+
+        IEnumerable<T> GetAll();
+
         void Update(T entity);
     }
 }

@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SampleArch.Model;
+﻿using SampleArch.Model;
 using SampleArch.Repository;
 
 namespace SampleArch.Service
 {
     public class CountryService : EntityService<Country>, ICountryService
     {
-        IUnitOfWork _unitOfWork;
-        ICountryRepository _countryRepository;
-        
+        private ICountryRepository _countryRepository;
+        private IUnitOfWork _unitOfWork;
+
         public CountryService(IUnitOfWork unitOfWork, ICountryRepository countryRepository)
             : base(unitOfWork, countryRepository)
         {
@@ -20,9 +15,6 @@ namespace SampleArch.Service
             _countryRepository = countryRepository;
         }
 
-
-        public Country GetById(int Id) {
-            return _countryRepository.GetById(Id);
-        }
+        public Country GetById(int Id) => _countryRepository.GetById(Id);
     }
 }

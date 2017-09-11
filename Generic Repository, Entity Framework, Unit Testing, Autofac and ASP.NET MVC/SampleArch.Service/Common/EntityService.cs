@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SampleArch.Model;
+﻿using SampleArch.Model;
 using SampleArch.Repository;
+using System;
+using System.Collections.Generic;
 
 namespace SampleArch.Service
 {
     public abstract class EntityService<T> : IEntityService<T> where T : BaseEntity
     {
-        IUnitOfWork _unitOfWork;
-        IGenericRepository<T> _repository;
+        private IGenericRepository<T> _repository;
+        private IUnitOfWork _unitOfWork;
 
-        public EntityService(IUnitOfWork unitOfWork, IGenericRepository<T> repository)
+        protected EntityService(IUnitOfWork unitOfWork, IGenericRepository<T> repository)
         {
             _unitOfWork = unitOfWork;
             _repository = repository;
-        }     
-
+        }
 
         public virtual void Create(T entity)
         {
@@ -27,14 +23,6 @@ namespace SampleArch.Service
                 throw new ArgumentNullException("entity");
             }
             _repository.Add(entity);
-            _unitOfWork.Commit();         
-        }
-
-
-        public virtual void Update(T entity)
-        {
-            if (entity == null) throw new ArgumentNullException("entity");
-            _repository.Edit(entity);
             _unitOfWork.Commit();
         }
 
@@ -45,9 +33,13 @@ namespace SampleArch.Service
             _unitOfWork.Commit();
         }
 
-        public virtual IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll() => _repository.GetAll();
+
+        public virtual void Update(T entity)
         {
-            return _repository.GetAll();
+            if (entity == null) throw new ArgumentNullException("entity");
+            _repository.Edit(entity);
+            _unitOfWork.Commit();
         }
     }
 }
