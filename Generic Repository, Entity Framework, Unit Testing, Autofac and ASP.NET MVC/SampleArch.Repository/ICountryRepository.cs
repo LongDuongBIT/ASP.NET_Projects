@@ -1,5 +1,5 @@
-﻿using System;
-using SampleArch.Model;
+﻿using SampleArch.Model;
+
 namespace SampleArch.Repository
 {
     public interface ICountryRepository : IGenericRepository<Country>
