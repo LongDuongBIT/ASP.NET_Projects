@@ -1,26 +1,32 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SampleArch.Model;
 using SampleArch.Repository;
-using System.Data.Common;
-using System.Collections.Generic;
 using System.Linq;
+
 namespace SampleArch.Test.Repositories
 {
     [TestClass]
     public class CountryRepositoryTestWithDB
     {
-     
-        TestContext databaseContext;
-        CountryRepository objRepo;
+        private TestContext databaseContext;
+        private CountryRepository objRepo;
 
-        [TestInitialize]
-        public void Initialize()
+        [TestMethod]
+        public void Country_Repository_Create()
         {
-          
-            databaseContext = new TestContext();
-            objRepo = new CountryRepository(databaseContext);
-           
+            //Arrange
+            var c = new Country { Name = "UK" };
+
+            //Act
+            var result = objRepo.Add(c);
+            databaseContext.SaveChanges();
+
+            var lst = objRepo.GetAll().ToList();
+
+            //Assert
+
+            Assert.AreEqual(4, lst.Count);
+            Assert.AreEqual("UK", lst.Last().Name);
         }
 
         [TestMethod]
@@ -38,22 +44,11 @@ namespace SampleArch.Test.Repositories
             Assert.AreEqual("Russia", result[2].Name);
         }
 
-        [TestMethod]
-        public void Country_Repository_Create()
+        [TestInitialize]
+        public void Initialize()
         {
-            //Arrange
-            Country c = new Country() {Name  = "UK" };
-
-            //Act
-            var result = objRepo.Add(c);
-            databaseContext.SaveChanges();
-
-            var lst = objRepo.GetAll().ToList();
-
-            //Assert
-
-            Assert.AreEqual(4, lst.Count);
-            Assert.AreEqual("UK", lst.Last().Name); 
+            databaseContext = new TestContext();
+            objRepo = new CountryRepository(databaseContext);
         }
     }
 }

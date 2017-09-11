@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SampleArch.Model;
 using SampleArch.Repository;
 using SampleArch.Service;
+using System.Collections.Generic;
 
 namespace SampleArch.Test.Services
 {
@@ -12,50 +11,26 @@ namespace SampleArch.Test.Services
     public class CountryServiceTest
     {
         private Mock<ICountryRepository> _mockRepository;
+        private Mock<IUnitOfWork> _mockUnitWork;
         private ICountryService _service;
-        Mock<IUnitOfWork> _mockUnitWork;
-        List<Country> listCountry;
+        private List<Country> listCountry;
 
-        [TestInitialize]
-        public void Initialize()
+        public interface IObject
         {
-            _mockRepository = new Mock<ICountryRepository>();
-            _mockUnitWork = new Mock<IUnitOfWork>();
-            _service = new CountryService(_mockUnitWork.Object, _mockRepository.Object);
-            listCountry = new List<Country>() {
-             new Country() { Id = 1, Name = "US" },
-             new Country() { Id = 2, Name = "India" },
-             new Country() { Id = 3, Name = "Russia" }
-            };
+            RetObj AnotherMethod();
         }
-
-        [TestMethod]
-        public void Country_Get_All()
-        {
-            //Arrange
-            _mockRepository.Setup(x => x.GetAll()).Returns(listCountry);
-
-            //Act
-            List<Country> results = _service.GetAll() as List<Country>;
-
-            //Assert
-            Assert.IsNotNull(results);
-            Assert.AreEqual(3, results.Count);
-        }
-
 
         [TestMethod]
         public void Can_Add_Country()
         {
             //Arrange
-            int Id = 1;
-            Country emp = new Country() { Name = "UK" };
+            var Id = 1;
+            var emp = new Country { Name = "UK" };
             _mockRepository.Setup(m => m.Add(emp)).Returns((Country e) =>
             {
                 e.Id = Id;
                 return e;
             });
-           
 
             //Act
             _service.Create(emp);
@@ -65,39 +40,31 @@ namespace SampleArch.Test.Services
             _mockUnitWork.Verify(m => m.Commit(), Times.Once);
         }
 
+        [TestMethod]
+        public void Country_Get_All()
+        {
+            //Arrange
+            _mockRepository.Setup(x => x.GetAll()).Returns(listCountry);
 
+            //Act
+            var results = _service.GetAll() as List<Country>;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /////////// dummy 
-
-        /// <summary>
-        /// dummy start here
-        /// </summary>
-
-        public class RetObj {
-        
+            //Assert
+            Assert.IsNotNull(results);
+            Assert.AreEqual(3, results.Count);
         }
 
-        public interface IObject
+        [TestInitialize]
+        public void Initialize()
         {
-            RetObj AnotherMethod();
+            _mockRepository = new Mock<ICountryRepository>();
+            _mockUnitWork = new Mock<IUnitOfWork>();
+            _service = new CountryService(_mockUnitWork.Object, _mockRepository.Object);
+            listCountry = new List<Country> {
+             new Country { Id = 1, Name = "US" },
+             new Country { Id = 2, Name = "India" },
+             new Country { Id = 3, Name = "Russia" }
+            };
         }
 
         public RetObj MyMethod(IObject obj)
@@ -106,26 +73,29 @@ namespace SampleArch.Test.Services
             return ret;
         }
 
+        public void Test()
+        {
+            //Arrange
+            var _mockObj = new Mock<IObject>();
 
-        public void Test() {
-            
-            //Arrange           
-            Mock<IObject> _mockObj = new Mock<IObject>();
-
-            var dummyVal = new RetObj(); 
+            var dummyVal = new RetObj();
             _mockObj.Setup(x => x.AnotherMethod()).Returns(dummyVal);
 
             //Act
             var result = MyMethod(_mockObj.Object);
 
-
             //Assert
-            Assert.Equals(dummyVal, result);         
+            Assert.Equals(dummyVal, result);
         }
 
+        /////////// dummy
 
+        /// <summary>
+        /// dummy start here
+        /// </summary>
 
-
-
+        public class RetObj
+        {
+        }
     }
 }
