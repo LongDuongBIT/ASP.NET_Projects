@@ -51,9 +51,9 @@
     <Compile Include="Common\IAuditableEntity.cs" />
     <Compile Include="Common\IEntity.cs" />
     <Compile Include="Country.cs" />
-    <Compile Include="Migrations\201709110045286_Initial.cs" />
-    <Compile Include="Migrations\201709110045286_Initial.Designer.cs">
-      <DependentUpon>201709110045286_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201709110103155_Initial.cs" />
+    <Compile Include="Migrations\201709110103155_Initial.Designer.cs">
+      <DependentUpon>201709110103155_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Person.cs" />
@@ -65,8 +65,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201709110045286_Initial.resx">
-      <DependentUpon>201709110045286_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201709110103155_Initial.resx">
+      <DependentUpon>201709110103155_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
