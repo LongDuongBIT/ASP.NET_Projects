@@ -1,16 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SampleArch.Model
 {
-    [Table("Person")]
+    [Table(nameof(Person))]
     public class Person : AuditableEntity<long>
-    {       
+    {
+        [Required]
+        [MaxLength(100)]
+        public string Address { get; set; }
+
+        [ForeignKey(nameof(CountryId))]
+        public virtual Country Country { get; set; }
+
+        [Display(Name = nameof(Country))]
+        public int CountryId { get; set; }
 
         [Required]
         [MaxLength(50)]
@@ -21,18 +25,7 @@ namespace SampleArch.Model
         public string Phone { get; set; }
 
         [Required]
-        [MaxLength(100)]
-        public string Address { get; set; }
-
-        [Required]
         [MaxLength(50)]
         public string State { get; set; }
-
-        [Display(Name="Country")]
-        public int CountryId { get; set;  }
-
-        [ForeignKey("CountryId")]
-        public virtual Country Country { get; set; }
-
     }
 }
