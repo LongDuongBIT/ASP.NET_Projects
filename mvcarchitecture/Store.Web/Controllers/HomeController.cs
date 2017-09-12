@@ -2,10 +2,8 @@
 using Store.Model;
 using Store.Service;
 using Store.Web.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Store.Web.Controllers
@@ -21,16 +19,23 @@ namespace Store.Web.Controllers
             this.gadgetService = gadgetService;
         }
 
-        // GET: Home
-        public ActionResult Index(string category = null)
+        [HttpPost]
+        public ActionResult Create(GadgetFormViewModel newGadget)
         {
-            IEnumerable<CategoryViewModel> viewModelGadgets;
-            IEnumerable<Category> categories;
+            if (newGadget != null && newGadget.File != null)
+            {
+                var gadget = Mapper.Map<GadgetFormViewModel, Gadget>(newGadget);
+                gadgetService.CreateGadget(gadget);
 
-            categories = categoryService.GetCategories(category).ToList();
+                var gadgetPicture = System.IO.Path.GetFileName(newGadget.File.FileName);
+                var path = System.IO.Path.Combine(Server.MapPath("~/images/"), gadgetPicture);
+                newGadget.File.SaveAs(path);
 
-            viewModelGadgets = Mapper.Map<IEnumerable<Category>, IEnumerable<CategoryViewModel>>(categories);
-            return View(viewModelGadgets);
+                gadgetService.SaveGadget();
+            }
+
+            var category = categoryService.GetCategory(newGadget.GadgetCategory);
+            return RedirectToAction(nameof(Index), new { category = category.Name });
         }
 
         public ActionResult Filter(string category, string gadgetName)
@@ -45,23 +50,16 @@ namespace Store.Web.Controllers
             return View(viewModelGadgets);
         }
 
-        [HttpPost]
-        public ActionResult Create(GadgetFormViewModel newGadget)
+        // GET: Home
+        public ActionResult Index(string category = null)
         {
-            if (newGadget != null && newGadget.File != null)
-            {
-                var gadget = Mapper.Map<GadgetFormViewModel, Gadget>(newGadget);
-                gadgetService.CreateGadget(gadget);
+            IEnumerable<CategoryViewModel> viewModelGadgets;
+            IEnumerable<Category> categories;
 
-                string gadgetPicture = System.IO.Path.GetFileName(newGadget.File.FileName);
-                string path = System.IO.Path.Combine(Server.MapPath("~/images/"), gadgetPicture);
-                newGadget.File.SaveAs(path);
+            categories = categoryService.GetCategories(category).ToList();
 
-                gadgetService.SaveGadget();
-            }
-
-            var category = categoryService.GetCategory(newGadget.GadgetCategory);
-            return RedirectToAction("Index", new { category = category.Name });
+            viewModelGadgets = Mapper.Map<IEnumerable<Category>, IEnumerable<CategoryViewModel>>(categories);
+            return View(viewModelGadgets);
         }
     }
 }

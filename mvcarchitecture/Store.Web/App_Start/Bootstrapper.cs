@@ -4,11 +4,8 @@ using Store.Data.Infrastructure;
 using Store.Data.Repositories;
 using Store.Service;
 using Store.Web.Mappings;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Store.Web.App_Start
@@ -31,14 +28,14 @@ namespace Store.Web.App_Start
 
             // Repositories
             builder.RegisterAssemblyTypes(typeof(GadgetRepository).Assembly)
-                .Where(t => t.Name.EndsWith("Repository"))
+                .Where(t => t.Name.EndsWith("Repository", System.StringComparison.Ordinal))
                 .AsImplementedInterfaces().InstancePerRequest();
             // Services
             builder.RegisterAssemblyTypes(typeof(GadgetService).Assembly)
-               .Where(t => t.Name.EndsWith("Service"))
+               .Where(t => t.Name.EndsWith(nameof(Service), System.StringComparison.Ordinal))
                .AsImplementedInterfaces().InstancePerRequest();
 
-            IContainer container = builder.Build();
+            var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
     }
