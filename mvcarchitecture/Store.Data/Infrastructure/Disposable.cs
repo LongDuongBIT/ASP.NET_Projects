@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Store.Data.Infrastructure
 {
@@ -20,6 +16,12 @@ namespace Store.Data.Infrastructure
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+        // Ovveride this to dispose custom objects
+        protected virtual void DisposeCore()
+        {
+        }
+
         private void Dispose(bool disposing)
         {
             if (!isDisposed && disposing)
@@ -28,11 +30,6 @@ namespace Store.Data.Infrastructure
             }
 
             isDisposed = true;
-        }
-
-        // Ovveride this to dispose custom objects
-        protected virtual void DisposeCore()
-        {
         }
     }
 }

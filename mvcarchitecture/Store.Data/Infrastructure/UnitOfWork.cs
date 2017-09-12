@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Store.Data.Infrastructure
+﻿namespace Store.Data.Infrastructure
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly IDbFactory dbFactory;
         private StoreEntities dbContext;
+        private readonly IDbFactory dbFactory;
 
         public UnitOfWork(IDbFactory dbFactory)
         {

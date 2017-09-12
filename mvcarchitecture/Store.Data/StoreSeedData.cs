@@ -1,10 +1,6 @@
 ﻿using Store.Model;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Store.Data
 {
@@ -143,7 +139,6 @@ namespace Store.Data
                     Price = 133.99m,
                     Image = "ulefone.jpg"
                 }
- 
             };
         }
     }
