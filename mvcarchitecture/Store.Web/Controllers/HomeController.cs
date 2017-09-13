@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ImageResizer;
 using Store.Model;
 using Store.Service;
 using Store.Web.ViewModels;
@@ -30,7 +31,13 @@ namespace Store.Web.Controllers
                 var gadgetPicture = System.IO.Path.GetFileName(newGadget.File.FileName);
                 var path = System.IO.Path.Combine(Server.MapPath("~/images/"), gadgetPicture);
                 newGadget.File.SaveAs(path);
-
+                var settings = new ResizeSettings
+                {
+                    Width = 160,
+                    Height = 160,
+                    Format = "jpg"
+                };
+                ImageBuilder.Current.Build(path, path, settings);
                 gadgetService.SaveGadget();
             }
 
