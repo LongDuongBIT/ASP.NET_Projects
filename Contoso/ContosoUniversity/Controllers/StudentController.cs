@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using ContosoUniversity.DAL;
+﻿using ContosoUniversity.DAL;
 using ContosoUniversity.Models;
 using PagedList;
+using System;
+using System.Data;
 using System.Data.Entity.Infrastructure;
+using System.Linq;
+using System.Net;
+using System.Web.Mvc;
 
 namespace ContosoUniversity.Controllers
 {
@@ -47,13 +44,16 @@ namespace ContosoUniversity.Controllers
                 case "name_desc":
                     students = students.OrderByDescending(s => s.LastName);
                     break;
+
                 case "Date":
                     students = students.OrderBy(s => s.EnrollmentDate);
                     break;
+
                 case "date_desc":
                     students = students.OrderByDescending(s => s.EnrollmentDate);
                     break;
-                default:  // Name ascending 
+
+                default:  // Name ascending
                     students = students.OrderBy(s => s.LastName);
                     break;
             }
@@ -62,7 +62,6 @@ namespace ContosoUniversity.Controllers
             int pageNumber = (page ?? 1);
             return View(students.ToPagedList(pageNumber, pageSize));
         }
-
 
         // GET: Student/Details/5
         public ActionResult Details(int? id)
@@ -86,7 +85,7 @@ namespace ContosoUniversity.Controllers
         }
 
         // POST: Student/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -109,7 +108,6 @@ namespace ContosoUniversity.Controllers
             return View(student);
         }
 
-
         // GET: Student/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -126,7 +124,7 @@ namespace ContosoUniversity.Controllers
         }
 
         // POST: Student/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
@@ -192,6 +190,7 @@ namespace ContosoUniversity.Controllers
             }
             return RedirectToAction("Index");
         }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -1,9 +1,8 @@
 namespace ContosoUniversity.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
     using System.Diagnostics;
-    
+
     public partial class Inheritance : DbMigration
     {
         public override void Up()
@@ -35,20 +34,20 @@ namespace ContosoUniversity.Migrations
             CreateIndex("dbo.Enrollment", "StudentID");
             Debug.Print("end");
         }
-        
+
         public override void Down()
         {
             CreateTable(
                 "dbo.Student",
                 c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        LastName = c.String(nullable: false, maxLength: 50),
-                        FirstName = c.String(nullable: false, maxLength: 50),
-                        EnrollmentDate = c.DateTime(nullable: false),
-                    })
+                {
+                    ID = c.Int(nullable: false, identity: true),
+                    LastName = c.String(nullable: false, maxLength: 50),
+                    FirstName = c.String(nullable: false, maxLength: 50),
+                    EnrollmentDate = c.DateTime(nullable: false),
+                })
                 .PrimaryKey(t => t.ID);
-            
+
             AlterColumn("dbo.Person", "HireDate", c => c.DateTime(nullable: false));
             DropColumn("dbo.Person", "Discriminator");
             DropColumn("dbo.Person", "EnrollmentDate");

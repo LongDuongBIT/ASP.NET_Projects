@@ -1,11 +1,8 @@
-﻿using System;
+﻿using ContosoUniversity.DAL;
+using ContosoUniversity.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using ContosoUniversity.DAL;
-using ContosoUniversity.ViewModels;
-
 
 namespace ContosoUniversity.Controllers
 {
@@ -38,6 +35,7 @@ namespace ContosoUniversity.Controllers
 
             return View(data.ToList());
         }
+
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

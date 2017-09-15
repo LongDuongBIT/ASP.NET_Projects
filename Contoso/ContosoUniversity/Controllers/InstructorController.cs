@@ -1,15 +1,14 @@
-﻿using System;
+﻿using ContosoUniversity.DAL;
+using ContosoUniversity.Models;
+using ContosoUniversity.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using ContosoUniversity.DAL;
-using ContosoUniversity.Models;
-using ContosoUniversity.ViewModels;
-using System.Data.Entity.Infrastructure;
 
 namespace ContosoUniversity.Controllers
 {
@@ -53,7 +52,6 @@ namespace ContosoUniversity.Controllers
 
             return View(viewModel);
         }
-
 
         // GET: Instructor/Details/5
         public ActionResult Details(int? id)
@@ -101,7 +99,6 @@ namespace ContosoUniversity.Controllers
             return View(instructor);
         }
 
-
         // GET: Instructor/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -138,8 +135,9 @@ namespace ContosoUniversity.Controllers
             }
             ViewBag.Courses = viewModel;
         }
+
         // POST: Instructor/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -180,6 +178,7 @@ namespace ContosoUniversity.Controllers
             PopulateAssignedCourseData(instructorToUpdate);
             return View(instructorToUpdate);
         }
+
         private void UpdateInstructorCourses(string[] selectedCourses, Instructor instructorToUpdate)
         {
             if (selectedCourses == null)
@@ -209,8 +208,6 @@ namespace ContosoUniversity.Controllers
                 }
             }
         }
-
-
 
         // GET: Instructor/Delete/5
         public ActionResult Delete(int? id)
@@ -251,6 +248,7 @@ namespace ContosoUniversity.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

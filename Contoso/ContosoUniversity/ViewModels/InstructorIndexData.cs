@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using ContosoUniversity.Models;
+﻿using ContosoUniversity.Models;
+using System.Collections.Generic;
 
 namespace ContosoUniversity.ViewModels
 {
@@ -10,4 +10,3 @@ namespace ContosoUniversity.ViewModels
         public IEnumerable<Enrollment> Enrollments { get; set; }
     }
 }
-

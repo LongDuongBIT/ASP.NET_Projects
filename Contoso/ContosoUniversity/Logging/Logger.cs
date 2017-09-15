@@ -6,7 +6,6 @@ namespace ContosoUniversity.Logging
 {
     public class Logger : ILogger
     {
-
         public void Information(string message)
         {
             Trace.TraceInformation(message);
@@ -61,6 +60,7 @@ namespace ContosoUniversity.Logging
         {
             TraceApi(componentName, method, timespan, string.Format(fmt, vars));
         }
+
         public void TraceApi(string componentName, string method, TimeSpan timespan, string properties)
         {
             string message = String.Concat("Component:", componentName, ";Method:", method, ";Timespan:", timespan.ToString(), ";Properties:", properties);
@@ -69,7 +69,7 @@ namespace ContosoUniversity.Logging
 
         private static string FormatExceptionMessage(Exception exception, string fmt, object[] vars)
         {
-            // Simple exception formatting: for a more comprehensive version see 
+            // Simple exception formatting: for a more comprehensive version see
             // http://code.msdn.microsoft.com/windowsazure/Fix-It-app-for-Building-cdd80df4
             var sb = new StringBuilder();
             sb.Append(string.Format(fmt, vars));

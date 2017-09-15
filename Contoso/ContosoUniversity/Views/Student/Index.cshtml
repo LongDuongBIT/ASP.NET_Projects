@@ -32,7 +32,6 @@
         <th></th>
     </tr>
 
-
     @foreach (var item in Model)
     {
         <tr>
@@ -52,7 +51,6 @@
             </td>
         </tr>
     }
-
 </table>
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount

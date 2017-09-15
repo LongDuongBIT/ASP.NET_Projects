@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ContosoUniversity.DAL;
+using ContosoUniversity.Models;
+using System;
 using System.Data;
 using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using ContosoUniversity.DAL;
-using ContosoUniversity.Models;
 using System.Data.Entity.Infrastructure;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace ContosoUniversity.Controllers
 {
@@ -54,7 +52,7 @@ namespace ContosoUniversity.Controllers
         }
 
         // POST: Department/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -88,7 +86,7 @@ namespace ContosoUniversity.Controllers
         }
 
         // POST: Department/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -217,7 +215,6 @@ namespace ContosoUniversity.Controllers
                 return View(department);
             }
         }
-
 
         protected override void Dispose(bool disposing)
         {
